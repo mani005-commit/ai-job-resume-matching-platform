@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const resumeSchema = new mongoose.Schema(
+const ResumeSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -14,31 +14,25 @@ const resumeSchema = new mongoose.Schema(
       fileUrl: String
     },
 
-    extractedText: String,
+    status: {
+      type: String,
+      enum: ["uploaded", "processing", "parsed", "failed"],
+      default: "uploaded"
+    },
 
     parsedData: {
       skills: [String],
-      education: [String],
-      experience: [
-        {
-          role: String,
-          company: String,
-          years: Number
-        }
-      ]
-    },
-
-    resumeScore: Number,
-
-    status: {
-      type: String,
-      enum: ["uploaded", "parsed"],
-      default: "uploaded"
+      experience: {
+        years: Number,
+        roles: [String]
+      },
+      education: {
+        degree: String,
+        field: String
+      }
     }
   },
-  {
-    timestamps: true
-  }
+  { timestamps: true }
 );
 
-export default mongoose.model("Resume", resumeSchema);
+export default mongoose.model("Resume", ResumeSchema);

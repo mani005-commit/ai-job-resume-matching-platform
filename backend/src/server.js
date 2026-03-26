@@ -5,7 +5,7 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import resumeRoutes from "./routes/resumeRoutes.js";
 import path from "path";
-
+import jobRoutes from "./routes/jobRoutes.js";
 
 
 
@@ -24,6 +24,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes); // ✅ app used AFTER creation
 app.use("/api/resume", resumeRoutes);
 
+app.use("/api/jobs", jobRoutes);
 
 // Test route
 app.get("/health", (req, res) => {
